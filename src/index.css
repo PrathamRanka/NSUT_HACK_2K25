@@ -1,0 +1,266 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 14%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 222 30% 18%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.5rem;
+
+    /* Risk severity colors */
+    --risk-critical: 0 84% 60%;
+    --risk-high: 25 95% 53%;
+    --risk-medium: 45 93% 47%;
+    --risk-low: 142 71% 45%;
+    --risk-info: 199 89% 48%;
+
+    /* Status colors */
+    --status-active: 142 71% 45%;
+    --status-monitoring: 45 93% 47%;
+    --status-investigating: 25 95% 53%;
+    --status-flagged: 0 84% 60%;
+
+    /* Chart colors */
+    --chart-1: 199 89% 48%;
+    --chart-2: 262 83% 58%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 45 93% 47%;
+    --chart-5: 0 84% 60%;
+
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(199 89% 48% / 0.3);
+    --glow-critical: 0 0 20px hsl(0 84% 60% / 0.4);
+    --glow-warning: 0 0 20px hsl(45 93% 47% / 0.3);
+    --glow-success: 0 0 20px hsl(142 71% 45% / 0.3);
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 12%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-ring: 199 89% 48%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  /* Risk indicators */
+  .risk-critical {
+    @apply bg-[hsl(var(--risk-critical))] text-white;
+  }
+  
+  .risk-high {
+    @apply bg-[hsl(var(--risk-high))] text-white;
+  }
+  
+  .risk-medium {
+    @apply bg-[hsl(var(--risk-medium))] text-background;
+  }
+  
+  .risk-low {
+    @apply bg-[hsl(var(--risk-low))] text-background;
+  }
+
+  .risk-info {
+    @apply bg-[hsl(var(--risk-info))] text-background;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-critical {
+    box-shadow: var(--glow-critical);
+  }
+
+  .glow-warning {
+    box-shadow: var(--glow-warning);
+  }
+
+  /* Data table styles */
+  .data-cell {
+    @apply font-mono text-sm;
+  }
+
+  /* Live pulse animation */
+  .live-pulse {
+    @apply relative;
+  }
+
+  .live-pulse::before {
+    content: '';
+    @apply absolute -inset-1 rounded-full bg-[hsl(var(--risk-critical))] opacity-75 animate-ping;
+  }
+
+  /* Card glow on hover */
+  .card-glow {
+    @apply transition-all duration-300;
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.15);
+  }
+
+  /* Metric card */
+  .metric-value {
+    @apply font-mono text-3xl font-bold tracking-tight;
+  }
+
+  .metric-label {
+    @apply text-xs uppercase tracking-widest text-muted-foreground;
+  }
+
+  /* Timeline connector */
+  .timeline-connector {
+    @apply absolute left-4 top-8 bottom-0 w-px bg-border;
+  }
+
+  /* Status dot */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-dot-active {
+    @apply bg-[hsl(var(--status-active))] animate-pulse;
+  }
+
+  .status-dot-monitoring {
+    @apply bg-[hsl(var(--status-monitoring))];
+  }
+
+  .status-dot-investigating {
+    @apply bg-[hsl(var(--status-investigating))];
+  }
+
+  .status-dot-flagged {
+    @apply bg-[hsl(var(--status-flagged))] animate-pulse;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  .font-sans {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
+  }
+
+  /* Animated gradient border */
+  .gradient-border {
+    @apply relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute -inset-px rounded-lg bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--accent))] to-[hsl(var(--primary))] opacity-50;
+    background-size: 200% 100%;
+    animation: gradient-shift 3s linear infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Slide in from right */
+  .animate-slide-in {
+    animation: slideIn 0.4s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Number counter animation */
+  .animate-number {
+    animation: numberPop 0.5s ease-out;
+  }
+
+  @keyframes numberPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+}
